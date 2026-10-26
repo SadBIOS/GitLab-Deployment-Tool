@@ -12,6 +12,14 @@ sudo -v || {
 SCRIPT_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 BINPATH="$SCRIPT_ROOT/gitlab_bin.deb"
 
+function eleven_guys_one_server() {
+
+}
+
+function one_guy_one_server() {
+
+}
+
 while [[ $# -gt 0 ]]; do
     case "$1" in
 
