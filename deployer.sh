@@ -18,26 +18,53 @@ CNF_NAM=""
 
 function eleven_guys_one_server() {
     CNF_NAM="$SCRIPT_ROOT/thats-a-lot-of-guys.rb"
+    MODIFIED_CONTENT="$(sed "s/IPIPIP_PIPIPI/$EXIT_IP/g" "$CNF_NAM")"
+    TMP_FILE="$(mktemp)"
+    awk -v REPL="$MODIFIED_CONTENT" '{
+        if ($0 ~ /^external_url[[:space:]]/) {
+            print REPL
+        } else {
+            print
+        }
+    }' /etc/gitlab/gitlab.rb > "$TMP_FILE"
+    sudo cp -v "$TMP_FILE" /etc/gitlab/gitlab.rb
+    rm -vrf "$TMP_FILE"
 }
 
 function one_guy_one_server() {
     CNF_NAM="$SCRIPT_ROOT/just-a-guy.rb"
+    MODIFIED_CONTENT="$(sed "s/IPIPIP_PIPIPI/$EXIT_IP/g" "$CNF_NAM")"
+    TMP_FILE="$(mktemp)"
+    awk -v REPL="$MODIFIED_CONTENT" '{
+        if ($0 ~ /^external_url[[:space:]]/) {
+            print REPL
+        } else {
+            print
+        }
+    }' /etc/gitlab/gitlab.rb > "$TMP_FILE"
+    sudo cp -v "$TMP_FILE" /etc/gitlab/gitlab.rb
+    rm -vrf "$TMP_FILE"
 }
 
 function inschtall () {
-
+    sudo gitlab-ctl reconfigure
+    sudo gitlab-rails runner "Feature.disable(:duo_agent_platform_widget_self_managed)"
+    sudo gitlab-rails runner "User.find_each { |u| u.avatar = nil; u.save(validate: false) }"
+    sudo gitlab-rake cache:clear
+    sudo gitlab-ctl restart
 }
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --med-perf)
             eleven_guys_one_server
-            
+            inschtall
             exit 0
         ;;
 
         --low-perf)
             one_guy_one_server
+            inschtall
             exit 0
         ;;
     esac

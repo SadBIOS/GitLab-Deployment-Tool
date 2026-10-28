@@ -73,7 +73,31 @@ while [[ $# -gt 0 ]]; do
         ;;
 
         --deploy)
-        	
+        	while [ $ATTEMPTS -lt $MAX_ATTEMPTS ]; do
+                echo "Please choose a deployment setup:"
+                echo "1. Admin + 10 Concurrent Users"
+                echo "2. Admin + 1 User"
+                read -p "Please enter your choice (1 or 2): " CHOICE
+
+                if [ "$CHOICE" = "1" ]; then
+                    "$EXTERN_PACK_RESOLVER" --med-perf
+                    exit 0
+                elif [ "$CHOICE" = "2" ]; then
+                    "$EXTERN_PACK_RESOLVER" --low-perf
+                    exit 0
+                else
+                    ATTEMPTS=$((ATTEMPTS + 1))
+                    REMAINING=$((MAX_ATTEMPTS - ATTEMPTS))
+
+                    if [ $REMAINING -gt 0 ]; then
+                        echo "Invalid choice. ($REMAINING attempts left)"
+                        echo "--------------------------------------------------"
+                    else
+                        echo "($MAX_ATTEMPTS) attempts -_- ... please get glasses."
+                        exit 1
+                    fi
+                fi
+            done
             exit 0
         ;;
     esac
