@@ -14,11 +14,17 @@ BINPATH="$SCRIPT_ROOT/gitlab_bin.deb"
 
 EXIT_IP="$(ip -4 addr show scope global | awk '/inet/ {print $2}' | cut -d/ -f1 | head -n1)"
 
-function eleven_guys_one_server() {
+CNF_NAM=""
 
+function eleven_guys_one_server() {
+    CNF_NAM="$SCRIPT_ROOT/thats-a-lot-of-guys.rb"
 }
 
 function one_guy_one_server() {
+    CNF_NAM="$SCRIPT_ROOT/just-a-guy.rb"
+}
+
+function inschtall () {
 
 }
 
@@ -26,6 +32,7 @@ while [[ $# -gt 0 ]]; do
     case "$1" in
         --med-perf)
             eleven_guys_one_server
+            
             exit 0
         ;;
 

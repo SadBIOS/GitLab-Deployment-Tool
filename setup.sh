@@ -78,3 +78,30 @@ while [[ $# -gt 0 ]]; do
         ;;
     esac
 done
+
+
+while [ $ATTEMPTS -lt $MAX_ATTEMPTS ]; do
+    echo "Please choose a deployment setup:"
+    echo "1. Admin + 10 Concurrent Users"
+    echo "2. Admin + 1 User"
+    read -p "Please enter your choice (1 or 2): " CHOICE
+
+    if [ "$CHOICE" = "1" ]; then
+        echo "Success! You selected Option 1."
+        exit 0
+    elif [ "$CHOICE" = "2" ]; then
+        echo "Success! You selected Option 2."
+        exit 0
+    else
+        ATTEMPTS=$((ATTEMPTS + 1))
+        REMAINING=$((MAX_ATTEMPTS - ATTEMPTS))
+
+        if [ $REMAINING -gt 0 ]; then
+            echo "Invalid choice. Please enter only 1 or 2. ($REMAINING attempts left)"
+            echo "--------------------------------------------------"
+        else
+            echo "Maximum incorrect attempts ($MAX_ATTEMPTS) reached. Exiting."
+            exit 1
+        fi
+    fi
+done
