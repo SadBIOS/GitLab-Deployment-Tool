@@ -54,17 +54,30 @@ function inschtall () {
     sudo gitlab-ctl restart
 }
 
+function gootlab_creds() {
+    PASSWORD="$(sudo awk '/^Password:/ {print $2}' /etc/gitlab/initial_root_password)"
+    printf "\n\e[32mServer is up and running!\e[0m\n"
+    printf "The following credentials are valid for \e[31m24 Hours\e[0m\n"
+    printf "temp_username: root\n"
+    printf "temp_password: %s\n" "$PASSWORD"
+    printf "login_portal: http://%s/\n" "$EXIT_IP"
+}
+
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --med-perf)
             eleven_guys_one_server
             inschtall
+            clear
+            gootlab_creds
             exit 0
         ;;
 
         --low-perf)
             one_guy_one_server
             inschtall
+            clear
+            gootlab_creds
             exit 0
         ;;
     esac
