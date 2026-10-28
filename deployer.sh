@@ -20,7 +20,7 @@ function eleven_guys_one_server() {
     CNF_NAM="$SCRIPT_ROOT/thats-a-lot-of-guys.rb"
     MODIFIED_CONTENT="$(sed "s/IPIPIP_PIPIPI/$EXIT_IP/g" "$CNF_NAM")"
     TMP_FILE="$(mktemp)"
-    awk -v REPL="$MODIFIED_CONTENT" '{
+    sudo awk -v REPL="$MODIFIED_CONTENT" '{
         if ($0 ~ /^external_url[[:space:]]/) {
             print REPL
         } else {
@@ -35,7 +35,7 @@ function one_guy_one_server() {
     CNF_NAM="$SCRIPT_ROOT/just-a-guy.rb"
     MODIFIED_CONTENT="$(sed "s/IPIPIP_PIPIPI/$EXIT_IP/g" "$CNF_NAM")"
     TMP_FILE="$(mktemp)"
-    awk -v REPL="$MODIFIED_CONTENT" '{
+    sudo awk -v REPL="$MODIFIED_CONTENT" '{
         if ($0 ~ /^external_url[[:space:]]/) {
             print REPL
         } else {
