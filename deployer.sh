@@ -12,7 +12,7 @@ sudo -v || {
 SCRIPT_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 BINPATH="$SCRIPT_ROOT/gitlab_bin.deb"
 
-EXIT_IP=""
+EXIT_IP=$(ip -4 addr show scope global | awk '/inet/ {print $2}' | cut -d/ -f1 | head -n1)
 
 function eleven_guys_one_server() {
 
