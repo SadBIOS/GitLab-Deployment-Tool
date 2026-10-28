@@ -70,7 +70,7 @@ while [[ $# -gt 0 ]]; do
         ;;
 
         --deploy)
-        	offline
+        	
             exit 0
         ;;
     esac

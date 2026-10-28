@@ -22,6 +22,11 @@ function one_guy_one_server() {
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
-
+        --med-perf)
+        exit 0
+        ;;
+        --low-perf)
+        exit 0
+        ;;
     esac
 done
