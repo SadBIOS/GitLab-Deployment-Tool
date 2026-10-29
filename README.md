@@ -21,7 +21,7 @@ After cloning/extracting the source code make the shell scripts executable with 
 chmod +x -v *.sh
 ```
 
-Start the staging process (it will fetch all dependencies and the Gitlab omnibus package)
+Start the staging process (it will fetch all dependencies and the Gitlab omnibus package).
 
 ```bash
 ./setup.sh --build-offline-archive
