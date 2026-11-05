@@ -15,7 +15,7 @@ PKGLIST="$SCRIPT_ROOT/pkglist.txt"
 PKG_ARCH="$SCRIPT_ROOT/gitlab_dependencies.tar.gz"
 EXTERN_PACK_RESOLVER="$SCRIPT_ROOT/deployer.sh"
 
-GIT_BIN="https://packages.gitlab.com/gitlab/gitlab-ee/debian/trixie/pool/main/g/gitlab-ee/gitlab-ee_19.5.1-ee.0_amd64.deb"
+GIT_BIN="https://packages.gitlab.com/gitlab/gitlab-ee/debian/trixie/pool/main/g/gitlab-ee/gitlab-ee_19.5.3-ee.0_amd64.deb"
 
 MAX_ATTEMPTS=5
 ATTEMPTS=0
