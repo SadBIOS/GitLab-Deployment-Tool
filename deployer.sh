@@ -46,8 +46,7 @@ function one_guy_one_server() {
     rm -vrf "$TMP_FILE"
 }
 
-function inschtall () {
-    sudo apt install "$BINPATH"
+function load2sys () {
     sudo gitlab-ctl reconfigure
     sudo gitlab-rails runner "Feature.disable(:duo_agent_platform_widget_self_managed)"
     sudo gitlab-rails runner "User.find_each { |u| u.avatar = nil; u.save(validate: false) }"
@@ -67,16 +66,18 @@ function gootlab_creds() {
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --med-perf)
+            sudo apt install "$BINPATH"
             eleven_guys_one_server
-            inschtall
+            load2sys
             clear
             gootlab_creds
             exit 0
         ;;
 
         --low-perf)
+            sudo apt install "$BINPATH"
             one_guy_one_server
-            inschtall
+            load2sys
             clear
             gootlab_creds
             exit 0
